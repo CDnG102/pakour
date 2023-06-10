@@ -1,8 +1,9 @@
 {
-    "name": "pakour",
+    "name": "피하세요",
     "description": "",
     "dependencies": {
-        "device": "*"
+        "device": "*",
+        "controller": "*"
     },
     "files": [
         "main.blocks",

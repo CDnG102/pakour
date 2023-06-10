@@ -1,14 +1,9 @@
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
     info.changeLifeBy(-1)
-    pause(200)
-})
-info.onLifeZero(function () {
-    game.setGameOverMessage(false, "GAME OVER!")
+    pause(1000)
 })
 let projectile: Sprite = null
-let mySprite: Sprite = null
-info.setLife(3)
-scene.cameraFollowSprite(mySprite)
+info.setLife(5)
 scene.setBackgroundImage(img`
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -131,7 +126,7 @@ scene.setBackgroundImage(img`
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     `)
-mySprite = sprites.create(img`
+let mySprite = sprites.create(img`
     . . . . . . f f f f f f . . . . 
     . . . . f f e e e e f 2 f . . . 
     . . . f f e e e e f 2 2 2 f . . 
@@ -151,12 +146,13 @@ mySprite = sprites.create(img`
     `, SpriteKind.Player)
 controller.moveSprite(mySprite)
 mySprite.setPosition(3, 63)
-info.setScore(0)
-while (info.life() == 0) {
-    info.changeScoreBy(1)
-}
 forever(function () {
-    pause(200)
+    if (info.life() == 0) {
+        game.gameOver(false)
+    }
+})
+forever(function () {
+    pause(500)
     projectile = sprites.createProjectileFromSprite(img`
         . . . . . . . c . . . . . . . . 
         . . . . . c c f c c . . . . . . 
